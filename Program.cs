@@ -27,7 +27,68 @@
             BookAuthors[1] = "Ahmed";
             LastBookIndex++;
 
+            bool Exit = false;
 
+            while (true)
+            {
+                Console.WriteLine("Welcome to the Library Management System");
+                Console.WriteLine("1. Add New Book");
+                Console.WriteLine("2. Borrow Book");
+                Console.WriteLine("3. Return Book ");
+                Console.WriteLine("4. Search Book");
+                Console.WriteLine("5. List All Available Books");
+                Console.WriteLine("6. Transfer Book ");
+                Console.WriteLine("7. Exit");
+                Console.WriteLine("Please select an option: ");
+                int option = int.Parse(Console.ReadLine());
+
+
+                switch(option)
+                {
+                    case 1:
+                        break;
+
+
+                    case 2:
+                        break;
+
+
+                    case 3:
+                        break;
+
+
+                    case 4:
+                        break;
+
+
+                    case 5:
+                        break;
+
+
+                    case 6:
+                        break;
+
+
+                    case 7:
+                        Exit = true;
+                        break;
+
+
+                    default:
+                        break;
+
+                }
+
+                if (Exit == true)
+                {
+                    break;
+                }
+
+                Console.WriteLine("Thank you for using the Library Management System, Press any key to continue");
+                Console.ReadLine();
+                Console.Clear();
+
+            }
 
 
 
