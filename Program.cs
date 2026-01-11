@@ -12,7 +12,7 @@
             string[] BookAuthors = new string[100];
             int LastBookIndex = -1;
 
-            //seed data
+            //seed data 
             BookTitles[0] = "Math";
             BookISBNs[0] = "A101";
             BookAvailability[0] = true;
