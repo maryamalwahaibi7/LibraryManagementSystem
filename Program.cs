@@ -16,13 +16,13 @@
             BookTitles[0] = "Math";
             BookISBNs[0] = "A101";
             BookAvailability[0] = true;
-            BorrowerNames[0] = "Sara";
+            BorrowerNames[0] = "";
             BookAuthors[0] = "Ali";
             LastBookIndex++;
 
             BookTitles[1] = "ComputerNetworks";
             BookISBNs[1] = "A202";
-            BookAvailability[1] = true;
+            BookAvailability[1] = false;
             BorrowerNames[1] = "Fatma";
             BookAuthors[1] = "Ahmed";
             LastBookIndex++;
@@ -63,7 +63,43 @@
                         break;
 
                     case 2:
-                        break;
+                        Console.WriteLine("Enter the book title or ISBN: ");
+                        string ISBNorTitle= Console.ReadLine();
+                        
+                        bool BookFound= false;
+
+                        for(int i = 0; i<100; i++)
+                        {
+                            if (ISBNorTitle == BookTitles[i] || ISBNorTitle == BookISBNs[i])
+                            {
+                                BookFound = true;
+
+                                if (BookAvailability[i] == true)
+                                {
+                                    BookAvailability[i] = false;
+
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Book borrowed alraedy");
+                                }
+                                break;
+                            }
+                            
+                        }
+
+                        if (BookFound == false) 
+                        {
+                            Console.WriteLine("Sorry the book is not found");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Enter your name: ");
+                            string BorrowedName = Console.ReadLine();
+                            Console.WriteLine("Book borrowed successfully!");
+                        }
+
+                            break;
 
 
                     case 3:
