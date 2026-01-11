@@ -46,8 +46,21 @@
                 switch(option)
                 {
                     case 1:
-                        break;
+                        Console.WriteLine("Enter the book title: ");
+                        BookTitles[LastBookIndex + 1] = Console.ReadLine();
 
+                        Console.WriteLine("Enter the book author: ");
+                        BookAuthors[LastBookIndex + 1]= Console.ReadLine();
+
+                        Console.WriteLine("Enter the book ISBN");
+                        BookISBNs[LastBookIndex + 1]= Console.ReadLine();
+
+                        BookAvailability[LastBookIndex + 1]= true;
+
+                        Console.WriteLine("New Book Added successfully!");
+                        LastBookIndex++;
+
+                        break;
 
                     case 2:
                         break;
@@ -87,7 +100,7 @@
                 Console.WriteLine("Thank you for using the Library Management System, Press any key to continue");
                 Console.ReadLine();
                 Console.Clear();
-
+ 
             }
 
 
