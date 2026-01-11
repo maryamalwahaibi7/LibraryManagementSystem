@@ -77,7 +77,6 @@
                                 if (BookAvailability[i] == true)
                                 {
                                     BookAvailability[i] = false;
-
                                 }
                                 else
                                 {
@@ -88,7 +87,7 @@
                             
                         }
 
-                        if (BookFound == false) 
+                        if (BookFound == false)
                         {
                             Console.WriteLine("Sorry the book is not found");
                         }
@@ -98,12 +97,41 @@
                             string BorrowedName = Console.ReadLine();
                             Console.WriteLine("Book borrowed successfully!");
                         }
-
-                            break;
+                        
+                        break;
 
 
                     case 3:
-                        break;
+                        Console.WriteLine("Enter the book ISBN: ");
+                        string bookISBN = Console.ReadLine();
+
+                        bool bookFound = false;
+                        for (int i = 0; i < 100; i++)
+                        {
+                            if (bookISBN == BookISBNs[i])
+                            {
+                                BookFound = true;
+
+                                if (BookAvailability[i] == false)
+                                {
+                                    Console.WriteLine("Enter borrowed name: ");
+                                    string BName = Console.ReadLine();
+                                    BookAvailability[i] = true;
+                                    Console.WriteLine("Book returned successfully!");
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Book alraedy available");
+                                }
+                                break;
+                            }
+                        }
+                        if (bookFound == false)
+                        {
+                            Console.WriteLine("Sorry the book is not found");
+                        }
+                        
+                        break ;
 
 
                     case 4:
