@@ -172,7 +172,25 @@
 
 
                     case 5:
-                        break;
+                        bool Book_Found = false;
+
+                        for (int i = 0; i < 100; i++)
+                        {
+                            if (BookAvailability[i] == true)
+                            {
+                                Console.WriteLine("The available books: " + BookTitles[i]); 
+                                Book_Found = true;
+                                break;
+                            }
+                        }
+
+                        if (Book_Found == false)
+                        {
+                            Console.WriteLine("Sorry the book is not found");
+                        }
+
+
+                            break;
 
 
                     case 6:
