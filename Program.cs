@@ -135,7 +135,40 @@
 
 
                     case 4:
-                        break;
+
+                        Console.WriteLine("Enter the book title or ISBN: ");
+                        string ISBN_Title = Console.ReadLine();
+
+                        bool BookisFound = false;
+
+                        bool currentBookAvailability = false;
+                        string currentBorrowerNames = "";
+                        string currentBookAuthors = "";
+
+                        for (int i = 0; i < 100; i++)
+                        {
+                            if (ISBN_Title == BookTitles[i] || ISBN_Title == BookISBNs[i])
+                            {
+                                currentBookAvailability = BookAvailability[i];
+                                currentBorrowerNames = BorrowerNames[i];
+                                currentBookAuthors = BookAuthors[i];
+
+                                BookisFound = true;
+                                break;
+                            }
+                        }
+
+                        if (BookisFound == false)
+                        {
+                            Console.WriteLine("Sorry the book is not found");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Book Availability: " + currentBookAvailability);
+                            Console.WriteLine("Borrower Names: " + currentBorrowerNames);
+                            Console.WriteLine("Book Authors: " + currentBookAuthors);
+                        }
+                             break;
 
 
                     case 5:
