@@ -12,6 +12,8 @@ namespace Library
             bool[] BookAvailability = new bool[100];
             string[] BorrowerNames = new string[100];
             string[] BookAuthors = new string[100];
+            string[] BookCategories = new string[100];
+            int[] BorrowCount = new int[100];
             int LastBookIndex = -1;
 
             //seed data 
@@ -20,6 +22,8 @@ namespace Library
             BookAvailability[0] = true;
             BorrowerNames[0] = "";
             BookAuthors[0] = "Ali";
+            BookCategories[0] = "Science";
+            BorrowCount[0] = 2;
             LastBookIndex++;
 
             BookTitles[1] = "ComputerNetworks";
@@ -27,6 +31,17 @@ namespace Library
             BookAvailability[1] = false;
             BorrowerNames[1] = "Fatma";
             BookAuthors[1] = "Ahmed";
+            BookCategories[1] = "Computer Science";
+            BorrowCount[1] = 5; 
+            LastBookIndex++;
+
+            BookTitles[2] = "Chemistry";
+            BookISBNs[2] = "A303";
+            BookAvailability[2] = false;
+            BorrowerNames[2] = "Sara";
+            BookAuthors[2] = "Mohammed";
+            BookCategories[2] = "Science";
+            BorrowCount[2] = 3;
             LastBookIndex++;
 
             bool Exit = false;
@@ -59,6 +74,8 @@ namespace Library
                         BookISBNs[LastBookIndex]= Console.ReadLine();
 
                         BookAvailability[LastBookIndex]= true;
+                        BorrowerNames[LastBookIndex] = "";
+
 
                         Console.WriteLine("New Book Added successfully!");
 
@@ -213,6 +230,9 @@ namespace Library
                                 temp = BorrowerNames[FirstBorrowerIndex];
                                 BorrowerNames[FirstBorrowerIndex] = BorrowerNames[SecondBorrowerIndex];
                                 BorrowerNames[SecondBorrowerIndex] = temp;
+
+                                Console.WriteLine("Book Transfered  successfully!");
+
                             }
 
                         }
