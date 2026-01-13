@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Xml.Linq;
 
 namespace Library
 {
@@ -55,7 +56,9 @@ namespace Library
                 Console.WriteLine("4. Search Book");
                 Console.WriteLine("5. List All Available Books");
                 Console.WriteLine("6. Transfer Book ");
-                Console.WriteLine("7. Exit");
+                Console.WriteLine("7. View Most Popular Books");
+                Console.WriteLine("8. Search Books by Category");
+                Console.WriteLine("9. Exit");
                 Console.WriteLine("Please select an option: ");
                 int option = int.Parse(Console.ReadLine());
 
@@ -239,8 +242,35 @@ namespace Library
 
                         break;
 
-
                     case 7:
+
+
+                        break;
+
+                    case 8:
+                        Console.WriteLine("Enter category name: ");
+                        string CategoryName = Console.ReadLine();
+
+                        bool Book_Found = false;
+                        for (int i = 0; i <= LastBookIndex; i++)
+                        {
+                            if( CategoryName == BookCategories[i])
+                            {
+                                Console.WriteLine("The books in this Category: " + BookTitles[i]);
+                                Console.WriteLine("Book Authors: " + BookAuthors[i] + ", Book ISBN: " + BookISBNs[i] + ", Book Availability: " + BookAvailability[i]);
+                                Book_Found = true;
+                            }
+                        }
+
+                        if(Book_Found == false)
+                        {
+                            Console.WriteLine("Sorry the book is not found");
+                        }
+
+                        break;
+
+
+                    case 9:
                         Exit = true;
                         break;
 
