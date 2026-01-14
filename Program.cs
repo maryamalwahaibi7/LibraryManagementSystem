@@ -15,6 +15,7 @@ namespace Library
             string[] BookAuthors = new string[100];
             string[] BookCategories = new string[100];
             int[] BorrowCount = new int[100];
+            double[] LateFees = new double[100];
             int LastBookIndex = -1;
 
             //seed data 
@@ -25,6 +26,7 @@ namespace Library
             BookAuthors[0] = "Ali";
             BookCategories[0] = "Science";
             BorrowCount[0] = 2;
+            LateFees[0] = 0;
             LastBookIndex++;
 
             BookTitles[1] = "ComputerNetworks";
@@ -33,7 +35,8 @@ namespace Library
             BorrowerNames[1] = "Fatma";
             BookAuthors[1] = "Ahmed";
             BookCategories[1] = "Computer Science";
-            BorrowCount[1] = 5; 
+            BorrowCount[1] = 5;
+            LateFees[1] = 0;
             LastBookIndex++;
 
             BookTitles[2] = "Chemistry";
@@ -43,11 +46,12 @@ namespace Library
             BookAuthors[2] = "Mohammed";
             BookCategories[2] = "Science";
             BorrowCount[2] = 3;
+            LateFees[2] = 0;
             LastBookIndex++;
 
             bool Exit = false;
 
-            while (true)
+            while (Exit == false)
             {
                 Console.WriteLine("Welcome to the Library Management System");
                 Console.WriteLine("1. Add New Book");
@@ -76,9 +80,13 @@ namespace Library
                         Console.WriteLine("Enter the book ISBN");
                         BookISBNs[LastBookIndex]= Console.ReadLine();
 
+                        Console.WriteLine("Enter the book category");
+                        BookCategories[LastBookIndex] = Console.ReadLine();
+
                         BookAvailability[LastBookIndex]= true;
                         BorrowerNames[LastBookIndex] = "";
-
+                        BorrowCount[LastBookIndex] = 0;
+                        LateFees[LastBookIndex] = 0; 
 
                         Console.WriteLine("New Book Added successfully!");
 
@@ -99,17 +107,19 @@ namespace Library
                                 if (BookAvailability[i] == true)
                                 {
                                     Console.WriteLine("Borrower name:");
+                                    BorrowerNames[i] = Console.ReadLine(); 
                                     BookAvailability[i] = false;
-                                    BorrowerNames[i] = Console.ReadLine();
+                                    BorrowCount[i]++;
+                                    LateFees[i] = 0; 
                                     Console.WriteLine("Book borrowed successfully!");
+                                    Console.WriteLine("This book has been borrowed " + BorrowCount[i] + " times");
                                 }
                                 else
                                 {
-                                    Console.WriteLine("Book borrowed alraedy");
+                                    Console.WriteLine("Book borrowed alraedy by: " + BorrowerNames[i]);
                                 }
                                 break;
                             }
-                            
                         }
 
                         if (BookFound == false) //if (!BookFound) 
@@ -118,30 +128,57 @@ namespace Library
                         }
                         break;
 
-
                     case 3:
-                        Console.WriteLine("Enter the book ISBN: ");
-                        string bookISBN = Console.ReadLine();
+                        Console.Write("Enter ISBN or Title: ");
+                        string returnInput = Console.ReadLine();
 
-                        bool bookFound = false;
+                        bool returnFound = false;
+
                         for (int i = 0; i <= LastBookIndex; i++)
                         {
-                            if (bookISBN == BookISBNs[i])
+                            if (BookTitles[i] == returnInput || BookISBNs[i] == returnInput)
                             {
-                                BookFound = true;
-                                BorrowerNames[i] = ""; 
-                                BookAvailability[i] = true;
-                                Console.WriteLine("Book returned successfully!");
-                            
+                                returnFound = true;
+
+                                if (BookAvailability[i] == false) // Check if book is actually borrowed
+                                {
+                                    Console.Write("Is the book returned late? (yes/no): "); 
+                                    string isLate = Console.ReadLine().ToLower();
+
+                                    if (isLate == "yes")
+                                    {
+                                        Console.Write("Enter number of days late: "); 
+                                        int daysLate = int.Parse(Console.ReadLine());
+                                        double feePerDay = 0.5;
+                                        LateFees[i] = daysLate * feePerDay; // Calculate late fee
+
+                                        Console.WriteLine("Late fee calculated: " + LateFees[i] + " OMR"); 
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Book returned on time"); 
+                                        LateFees[i] = 0;
+                                    }
+
+                                    BorrowerNames[i] = "";
+                                    BookAvailability[i] = true;
+                                    Console.WriteLine("Book returned successfully!");
+                                }
+                                else
+                                {
+                                    Console.WriteLine("This book was not borrowed");
+                                }
+
                                 break;
                             }
                         }
-                        if (bookFound == false)
+
+                        if (returnFound == false)
                         {
-                            Console.WriteLine("Sorry the book is not found");
+                            Console.WriteLine("Book not found");
                         }
-                        
-                        break ;
+
+                        break;
 
 
                     case 4:
@@ -155,7 +192,17 @@ namespace Library
                             if (ISBN_Title == BookTitles[i] || ISBN_Title == BookISBNs[i])
                             {
                                 BookisFound = true;
-                                Console.WriteLine("Book Title: " + BookTitles[i] + "Book Authors: " + BookAuthors[i] + "Book ISBN: " + BookISBNs[i] + "Book Availability: " + BookAvailability[i] + "Borrower Names: " + BorrowerNames[i]);
+                                Console.WriteLine("Book Title: " + BookTitles[i]);
+                                Console.WriteLine("Book Authors: " + BookAuthors[i]);
+                                Console.WriteLine("Book ISBN: " + BookISBNs[i]);
+                                Console.WriteLine("Category: " + BookCategories[i]);
+                                Console.WriteLine("Book Availability: " + BookAvailability[i]);
+                                Console.WriteLine("Times Borrowed: " + BorrowCount[i]);
+
+                                if (BookAvailability[i] == false)
+                                {
+                                    Console.WriteLine("Current Borrower: " + BorrowerNames[i]);
+                                }
                                 break;
                             }
                         }
@@ -170,15 +217,20 @@ namespace Library
                     case 5:
                         Console.WriteLine("The available books: ");
 
+                        bool hasAvailable = false;
                         for (int i = 0; i <= LastBookIndex; i++)
                         {
                             if (BookAvailability[i] == true)
                             {
-                                Console.WriteLine("Title: " + BookTitles[i] + "Author: " + BookAuthors[i] + "ISBN: " + BookISBNs[i]);
-                                break;
+                                hasAvailable = true;
+                                Console.WriteLine("Title: " + BookTitles[i] + "Author: " + BookAuthors[i] + "ISBN: " + BookISBNs[i] + "Category: " + BookCategories[i]);
                             }
                         }
 
+                        if(hasAvailable == false)
+                        {
+                            Console.WriteLine("No books available at the moment");
+                        }
                             break;
 
 
@@ -234,7 +286,8 @@ namespace Library
                                 BorrowerNames[FirstBorrowerIndex] = BorrowerNames[SecondBorrowerIndex];
                                 BorrowerNames[SecondBorrowerIndex] = temp;
 
-                                Console.WriteLine("Book Transfered  successfully!");
+                                Console.WriteLine("Book Transfered successfully!");
+                                Console.WriteLine("Book '" + BookTitles[FirstBorrowerIndex] + "' is now borrowed by " + SecondBorrowerName);
 
                             }
 
@@ -243,7 +296,20 @@ namespace Library
                         break;
 
                     case 7:
+                        Console.WriteLine("Most Popular Books (by borrow count):");
+                        Console.WriteLine("----------------------------------------");
 
+                        // Simple sorting by displaying in order
+                        for (int count = 100; count >= 0; count--) // Start from highest possible count
+                        {
+                            for (int i = 0; i <= LastBookIndex; i++)
+                            {
+                                if (BorrowCount[i] == count)
+                                {
+                                    Console.WriteLine("ISBN: " + BookISBNs[i] + " | Title: " + BookTitles[i] + " | Author: " + BookAuthors[i] + " | Category: " + BookCategories[i] + " | Times Borrowed: " + BorrowCount[i]);
+                                }
+                            }
+                        }
 
                         break;
 
